@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UpdateContact = (props) => {
-  let location = useLocation();
+  const location = useLocation();
+  const navigateHome = useNavigate();
   const { id, name, email } = location.state.contact;
   const [newName, setNewName] = useState(name);
   const [newEmail, setNewEmail] = useState(email);
@@ -14,6 +15,10 @@ const UpdateContact = (props) => {
       return;
     }
     props.updateContactHandler({ id: id, name: newName, email: newEmail });
+
+    setNewName("");
+    setNewEmail("");
+    navigateHome("/");
   };
   return (
     <div className="ui main">
